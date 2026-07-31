@@ -1,9 +1,17 @@
 import { useState, useEffect } from "react";
+import ScrollProgressBar from "./components/ScrollProgressBar";
+import FloatingAccents from "./components/FloatingAccents";
 import HeroSection from "./components/HeroSection";
-import SocialFeed from "./components/SocialFeed";
+import AnimatedStats from "./components/AnimatedStats";
+import JourneyTimeline from "./components/JourneyTimeline";
+import SectionDivider from "./components/SectionDivider";
+// import SocialFeed from "./components/SocialFeed";
 import GalleryGrid from "./components/GalleryGrid";
 import Lightbox from "./components/Lightbox";
 import MusicPlayer from "./components/MusicPlayer";
+import Footer from "./components/Footer";
+import BackToTop from "./components/BackToTop";
+import { useScrollReveal } from "./hooks/useScrollReveal";
 
 const config = {
   weddingDate: "November 15, 2025",
@@ -68,6 +76,9 @@ function App() {
   const [activeImageSrc, setActiveImageSrc] = useState("");
   const [slideshow, setSlideshow] = useState(false);
 
+  // Initialize IntersectionObserver scroll reveal
+  useScrollReveal(".fade");
+
   // Sync body scroll with lightbox open status
   useEffect(() => {
     if (lightboxOpen) {
@@ -99,7 +110,6 @@ function App() {
       setCurrentImageIndex(indexOrSrc);
       setActiveImageSrc(galleryImages[indexOrSrc].src);
     } else {
-      // Find matching index in galleryImages if present
       const foundIdx = galleryImages.findIndex((img) => img.src === indexOrSrc);
       if (foundIdx !== -1) {
         setCurrentImageIndex(foundIdx);
@@ -141,19 +151,37 @@ function App() {
 
   return (
     <>
+      <ScrollProgressBar />
+      <FloatingAccents />
+
       <HeroSection
         subtitle={subtitle}
         slideshow={slideshow}
         onToggleSlideshow={handleToggleSlideshow}
       />
+
+      <AnimatedStats />
+
+      <SectionDivider variant="sparkles" />
+
+      <JourneyTimeline />
+
+      {/* <SectionDivider variant="heart" />
+
       <SocialFeed
         config={config}
         onOpenLightbox={(src) => handleOpenLightbox(src)}
-      />
+      /> */}
+
+      <SectionDivider variant="sparkles" />
+
       <GalleryGrid
         images={galleryImages}
         onImageClick={(idx) => handleOpenLightbox(idx)}
       />
+
+      <Footer />
+
       <Lightbox
         isOpen={lightboxOpen}
         currentSrc={activeImageSrc}
@@ -161,7 +189,10 @@ function App() {
         onNext={handleNext}
         onPrev={handlePrev}
       />
+
       <MusicPlayer />
+
+      <BackToTop />
     </>
   );
 }
