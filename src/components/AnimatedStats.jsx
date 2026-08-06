@@ -3,10 +3,10 @@ import { Camera, Heart, Calendar, Sparkles } from 'lucide-react';
 
 /**
  * Calculates dynamic years together starting from a milestone anniversary date.
- * Example milestone date: July 31st (Month index 6, Day 31).
- * Every July 31st, the year count increments automatically.
+ * Example milestone date: November 15th (Month index 6, Day 31).
+ * Every November 15th, the year count increments automatically.
  */
-function calculateYearsTogether(startDate = new Date(2025, 6, 31)) {
+function calculateYearsTogether(startDate = new Date(2025, 11, 15)) {
   const now = new Date();
   let years = now.getFullYear() - startDate.getFullYear();
 
